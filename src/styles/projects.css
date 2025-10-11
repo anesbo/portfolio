@@ -1,0 +1,73 @@
+/* Styles for the projects section */
+
+.projects-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+    padding: 3rem 1.5rem;
+    background-color: #ffffff; /* White background */
+    text-align: center;
+  }
+  
+  .projects-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+  
+  /* A grid container for your project cards */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Individual project cards */
+  .project-card {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    overflow: hidden; /* Hides parts of the image that go outside the card */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    transition: transform 0.3s ease;
+  }
+  
+  .project-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .project-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .project-info {
+    padding: 1.5rem;
+  }
+  
+  .project-info h3 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+  
+  .project-info p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: #666;
+  }
+  
+  .project-info a {
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
+  }

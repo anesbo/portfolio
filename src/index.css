@@ -1,0 +1,38 @@
+/* 1. Define your custom font */
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter_black_900-webfont.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+/* Add this to the top of src/index.css */
+
+html {
+  /* REMOVE scroll-snap-type: y mandatory; */
+  scroll-behavior: auto; /* Let JavaScript handle it */
+}
+.scroll-section {
+  
+  /* Force the element onto its own layer, activating the GPU */
+  transform: translateZ(0);
+
+  /* Can help prevent flickering during transitions */
+  backface-visibility: hidden;
+}
+html, body, #root {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+/* Target all potential scroll containers for Chrome, Safari, etc. */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+#root::-webkit-scrollbar {
+  display: none;
+}
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0%;
+  background-color: #1B0C1A;
+}

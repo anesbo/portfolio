@@ -1,0 +1,42 @@
+/* Styles for the skills section */
+
+.skills-section {
+    /* You can adjust the height, but 10dvh is very small. I'll use min-height. */
+    height: 100dvh; /* Add some spacing */
+    background-color: #f4f4f4; /* A light grey background to separate it */
+    text-align: center;
+  }
+  
+  .skills-title {
+    font-size: 2.5rem; /* 40px */
+    font-weight: 900;
+    margin-bottom: 2rem;
+    color: #333; /* Dark text color */
+  }
+  
+  /* A grid container for your skill cards */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto; /* Center the grid */
+  }
+  
+  /* Individual skill cards */
+  .skill-card {
+    background-color: white;
+    padding: 2rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #444;
+  }
+  
+  /* A simple hover effect for the cards */
+  .skill-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  }

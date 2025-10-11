@@ -1,0 +1,59 @@
+/* Styles for the tools section */
+
+.tools-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+    padding: 3rem 1.5rem;
+    background-color: #f4f4f4; /* Light grey background */
+    text-align: center;
+  }
+  
+  .tools-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+  
+  /* A grid for your tool cards */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  /* Individual tool cards */
+  .tool-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .tool-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .tool-card img {
+    height: 60px; /* Adjust size for logos */
+    width: 60px;
+  }
+  
+  .tool-card p {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 0;
+    color: #444;
+  }
