@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import '../styles/skills.css';
+import '../styles/Skills.css';
 import '../styles/animations.css'; // 1. Import the animation styles
 import useAnimateOnScroll from '../hooks/useAnimateOnScroll'; // 2. Import the new hook
 
