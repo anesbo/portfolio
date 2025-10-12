@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import Nav from './components/nav';
 import Hero from './components/hero';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
-import Tools from './components/Tools';
-import Contact from './components/Contact';
+import Skills from './components/skills';
+import Projects from './components/projects';
+import Tools from './components/tools';
+import Contact from './components/contact';
 import useSnapScrolling from './hooks/useSnapScrolling';
 import useSectionObserver from './hooks/useSectionObserver';
 
