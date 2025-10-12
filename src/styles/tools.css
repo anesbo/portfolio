@@ -1,59 +1,79 @@
-/* Styles for the tools section */
-
+/* --- Section Layout --- */
 .tools-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100dvh;
-    padding: 3rem 1.5rem;
-    background-color: #f4f4f4; /* Light grey background */
-    text-align: center;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+  padding: 3rem 1.5rem;
+  background-color: #f4f4f4;
+}
+
+.tools-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 2rem;
+  width: 100%;
+  max-width: 1000px;
+}
+
+/* --- The 3D Tool Card --- */
+.tool-card {
+  position: relative;
+  overflow: hidden;
+  height: 150px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   
-  .tools-title {
-    font-size: 2.5rem;
-    font-weight: 900;
-    margin-bottom: 2rem;
-    color: #333;
-  }
-  
-  /* A grid for your tool cards */
-  .tools-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 2rem;
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  
-  /* Individual tool cards */
-  .tool-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    background-color: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-  }
-  
-  .tool-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .tool-card img {
-    height: 60px; /* Adjust size for logos */
-    width: 60px;
-  }
-  
-  .tool-card p {
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin: 0;
-    color: #444;
-  }
+  /* Key properties for the 3D effect */
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: box-shadow 0.3s ease;
+}
+
+/* --- Hover State & Shadow --- */
+.tool-card:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Card Content Layering --- */
+.tool-card img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  z-index: 1; /* Bottom layer */
+}
+
+.tool-card .name {
+  position: relative;
+  z-index: 2; /* Middle layer */
+  margin-top: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #444;
+  transform: translateZ(20px); /* Lifts the text forward */
+}
+
+.tool-card .area {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  z-index: 3; /* Top layer */
+  transform: translateZ(30px); /* Lifts this even further forward */
+}

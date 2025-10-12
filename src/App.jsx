@@ -1,32 +1,36 @@
-import Hero from './components/hero';
 import { useState } from 'react';
-import Skills from './components/skills';
-import Projects from './components/projects';
-import Tools from './components/tools';
+import Nav from './components/Nav';
+import Hero from './components/hero';
+import Skills from './components/Skills';
+import Projects from './components/Projects';
+import Tools from './components/Tools';
+import Contact from './components/Contact';
 import useSnapScrolling from './hooks/useSnapScrolling';
-import Contact from './components/contact'
-import Nav from './components/nav';
 import useSectionObserver from './hooks/useSectionObserver';
-import './styles/hero.css'; // <-- Import the new CSS file here
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
-  const { scrollToTarget } = useSnapScrolling(); // Get the new function
+  const { scrollToTarget } = useSnapScrolling(); // Get the smart scroll function
 
+  // This hook automatically updates which link is active in the nav
   useSectionObserver(setActiveSection);
-  return ( <>
-    {/* 3. Pass the state and the updater function to the Nav component */}
-    <Nav scrollToTarget={scrollToTarget} activeSection={activeSection} />
 
-    {/* We will need to pass setActiveSection to the main content later */}
-    <main>
-      <Hero setActiveSection={setActiveSection} />
-      <Skills setActiveSection={setActiveSection} />
-      <Projects setActiveSection={setActiveSection} />
-      <Tools setActiveSection={setActiveSection} />
-      <Contact setActiveSection={setActiveSection} />
-    </main>
-  </>
+  return (
+    <>
+      {/* The Nav component needs both of these props to work */}
+      <Nav scrollToTarget={scrollToTarget} activeSection={activeSection} />
+
+      <main>
+        {/* The Hero component needs the scrollToTarget function for its button */}
+        <Hero scrollToTarget={scrollToTarget} />
+        
+        {/* The other sections don't need any props */}
+        <Skills />
+        <Tools />
+        <Projects />
+        <Contact />
+      </main>
+    </>
   );
 }
 

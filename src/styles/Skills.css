@@ -7,9 +7,65 @@
     text-align: center;
   }
   
+  /* Add these new styles to your src/styles/skills.css file */
+
+.skill-card {
+  position: relative; 
+  overflow: hidden;
+  /* Update the card to use flexbox for better alignment */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem; /* Adds space between the icon, name, and description */
+  text-align: center;
+  background-color: rgb(0, 0, 0);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #444;
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  text-align: left;
+  z-index: 1;
+  margin-top: 10%;
+  margin-bottom: 20%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.skill-icon {
+  z-index: 0; 
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: calc(0.7);
+}
+
+.skill-name {
+  padding-bottom: 15px;
+  z-index: 1;
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin: 0;
+  color: #ffffff;
+}
+
+.skill-description {
+  z-index: 1;
+  font-size: 0.8rem;
+  color: #8f8f8f;
+  margin: 0;
+}
   .skills-title {
     font-size: 2.5rem; /* 40px */
     font-weight: 900;
+    padding-top: 7%;
     margin-bottom: 2rem;
     color: #333; /* Dark text color */
   }
@@ -24,19 +80,20 @@
   }
   
   /* Individual skill cards */
-  .skill-card {
-    background-color: white;
-    padding: 2rem 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: #444;
-  }
   
   /* A simple hover effect for the cards */
   .skill-card:hover {
+    cursor: pointer;
     transform: translateY(-5px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 16px rgb(120, 120, 120);
   }
+.area{
+  font-size: 1rem;
+  margin-left: 40px;
+  text-align: left;
+  padding-top: 3%;
+  padding-bottom: 12%;
+  width: 100%;
+  z-index: 1;
+  background-color: black;
+}

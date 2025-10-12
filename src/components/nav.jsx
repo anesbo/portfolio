@@ -33,6 +33,16 @@ function Nav({ scrollToTarget, activeSection }) {
         </li>
 
         <li
+          className={`nav-link-item ${activeSection === 'tools' ? 'active-link' : ''}`}
+          onClick={() => handleNavClick('tools')}
+        >
+          <span className="circle" aria-hidden="true">
+          </span>
+          <span className="button-text">Tools</span>
+        </li>
+
+        
+        <li
           className={`nav-link-item ${activeSection === 'projects' ? 'active-link' : ''}`}
           onClick={() => handleNavClick('projects')}
         >
@@ -40,15 +50,6 @@ function Nav({ scrollToTarget, activeSection }) {
 
           </span>
           <span className="button-text">Projects</span>
-        </li>
-        
-        <li
-          className={`nav-link-item ${activeSection === 'tools' ? 'active-link' : ''}`}
-          onClick={() => handleNavClick('tools')}
-        >
-          <span className="circle" aria-hidden="true">
-          </span>
-          <span className="button-text">Tools</span>
         </li>
         <li
           className={`nav-link-item ${activeSection === 'contact' ? 'active-link' : ''}`}

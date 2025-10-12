@@ -1,13 +1,20 @@
-import React from 'react';
-import '../styles/projects.css'; // Import the new CSS file
+import React, { useRef } from 'react';
+import '../styles/projects.css';
+import '../styles/animations.css'; // 1. Import the animation styles
+import useAnimateOnScroll from '../hooks/useAnimateOnScroll'; // 2. Import the animation hook
 
 function Projects() {
+  const gridRef = useRef(null); // 3. Create a ref for the grid container
+  useAnimateOnScroll(gridRef); // 4. Call the hook with the ref
+
   return (
     <section id='projects' className="projects-section scroll-section">
       <h2 className="projects-title">My Projects</h2>
-      <div className="projects-grid">
-        {/* Project Card 1 */}
-        <div className="project-card">
+      {/* 5. Attach the ref to the grid */}
+      <div ref={gridRef} className="projects-grid">
+        
+        {/* 6. Add the 'fade-in-up' class to each project card */}
+        <div className="project-card fade-in-up">
           <img src="/images/project-1.jpg" alt="Screenshot of Project One" />
           <div className="project-info">
             <h3>Project One</h3>
@@ -16,8 +23,7 @@ function Projects() {
           </div>
         </div>
 
-        {/* Project Card 2 */}
-        <div className="project-card">
+        <div className="project-card fade-in-up">
           <img src="/images/project-2.jpg" alt="Screenshot of Project Two" />
           <div className="project-info">
             <h3>Project Two</h3>
@@ -26,8 +32,7 @@ function Projects() {
           </div>
         </div>
 
-        {/* Project Card 3 */}
-        <div className="project-card">
+        <div className="project-card fade-in-up">
           <img src="/images/project-3.jpg" alt="Screenshot of Project Three" />
           <div className="project-info">
             <h3>Project Three</h3>
@@ -35,6 +40,7 @@ function Projects() {
             <a href="#">View on GitHub</a>
           </div>
         </div>
+        
       </div>
     </section>
   );
