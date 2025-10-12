@@ -13,7 +13,7 @@ function Skills() {
       {/* 5. Attach the ref to the grid */}
       <div ref={gridRef} className="skills-grid">
         <div className="skill-card fade-in-up">
-          <img src="/public/pictures/react.jpg" alt="React logo" className="skill-icon" />
+          <img src="/pictures/react.jpg" alt="React logo" className="skill-icon" />
           <div className='container'>
             <h3 className="skill-name">React</h3>
             <p className="skill-description">Building dynamic and responsive user interfaces.</p>
@@ -22,7 +22,7 @@ function Skills() {
         </div>
 
         <div className="skill-card fade-in-up">
-          <img src="/public/pictures/html.jpg" alt="React logo" className="skill-icon" />
+          <img src="/pictures/html.jpg" alt="React logo" className="skill-icon" />
           <div className='container'>
             <h3 className="skill-name">html</h3>
             <p className="skill-description">Building dynamic and responsive user interfaces.</p>
