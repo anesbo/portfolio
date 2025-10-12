@@ -31,7 +31,7 @@ function Skills() {
         </div>
 
         <div className="skill-card fade-in-up">
-          <img src="/public/pictures/js.jpg" alt="React logo" className="skill-icon" />
+          <img src="/pictures/js.jpg" alt="React logo" className="skill-icon" />
           <div className='container'>
             <h3 className="skill-name">java script</h3>
             <p className="skill-description">Building dynamic and responsive user interfaces.</p>
@@ -40,7 +40,7 @@ function Skills() {
         </div>
 
         <div className="skill-card fade-in-up">
-          <img src="/public/pictures/python.jpg" alt="React logo" className="skill-icon" />
+          <img src="/pictures/python.jpg" alt="React logo" className="skill-icon" />
           <div className='container'>
             <h3 className="skill-name">python</h3>
             <p className="skill-description">Building dynamic and responsive user interfaces.</p>
@@ -49,7 +49,7 @@ function Skills() {
         </div>
 
         <div className="skill-card fade-in-up">
-          <img src="/public/pictures/sql.jpg" alt="React logo" className="skill-icon" />
+          <img src="/pictures/sql.jpg" alt="React logo" className="skill-icon" />
           <div className='container'>
             <h3 className="skill-name">my sql</h3>
             <p className="skill-description">Building dynamic and responsive user interfaces.</p>
@@ -58,7 +58,7 @@ function Skills() {
         </div>
 
         <div className="skill-card fade-in-up">
-          <img src="/public/pictures/tailwind.jpg" alt="React logo" className="skill-icon" />
+          <img src="/pictures/tailwind.jpg" alt="React logo" className="skill-icon" />
           <div className='container'>
             <h3 className="skill-name">Tail wind</h3>
             <p className="skill-description">Building dynamic and responsive user interfaces.</p>
@@ -67,7 +67,7 @@ function Skills() {
         </div>
 
         <div className="skill-card fade-in-up">
-          <img src="/public/pictures/ts.jpg" alt="React logo" className="skill-icon" />
+          <img src="/pictures/ts.jpg" alt="React logo" className="skill-icon" />
           <div className='container'>
             <h3 className="skill-name">typescript</h3>
             <p className="skill-description">Building dynamic and responsive user interfaces.</p>
@@ -75,7 +75,7 @@ function Skills() {
           <div className='area'>skill grade 9/10</div>
         </div>
         <div className="skill-card fade-in-up">
-          <img src="/public/pictures/next.jpg" alt="React logo" className="skill-icon" />
+          <img src="/pictures/next.jpg" alt="React logo" className="skill-icon" />
           <div className='container'>
             <h3 className="skill-name">Nextjs.</h3>
             <p className="skill-description">Building dynamic and responsive user interfaces.</p>
