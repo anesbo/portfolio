@@ -76,7 +76,7 @@ function Tools() {
         
         {/* Card 5: NPM */}
         <div className="tool-card fade-in-up">
-          <img src="/pictures/npm.svg" alt="NPM logo" />
+          <img src="/pictures/npm.svg" alt="NPM logo no pic here" />
           <div className="name">NPM</div>
           <div className="area">Package Manager</div>
         </div>
