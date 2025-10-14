@@ -69,8 +69,8 @@ useGSAP(() => {
   const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
 
   // Animate the main content first
-  tl.from(nameASplit.chars, { yPercent: 100, stagger: 0.05, duration: 1.8 }) // Removed opacity: 0
-    .from(nameBSplit.chars, { yPercent: 100, stagger: 0.05, duration: 1.8 }, "-=1.6") // Removed opacity: 0
+  tl.from(nameASplit.chars, { opacity:0, yPercent: 100, stagger: 0.05, duration: 1.8 }) // Removed opacity: 0
+    .from(nameBSplit.chars, { opacity:0, yPercent: 100, stagger: 0.05, duration: 1.8 }, "-=1.6") // Removed opacity: 0
     .from(nameCRef.current, { opacity: 0, y: 20, duration: 1.5 }, "-=1.5")
 
   // Set the initial state for tagline H2
@@ -92,7 +92,7 @@ useGSAP(() => {
       duration: 1,
       ease: 'expo.out',
       stagger: 0.1, // Adjust stagger for desired effect
-      delay: 0.2 // Delay after H2 animation starts
+      delay: 0 // Delay after H2 animation starts
     });
   });
 

@@ -1,30 +1,34 @@
 import { useState } from 'react';
-import Nav from './components/nav';
-import Hero from './components/hero';
+import Nav from './components/Nav';
+import Hero from './components/Hero';
 import Skills from './components/skills';
-import Projects from './components/projects';
-import Tools from './components/tools';
-import Contact from './components/contact';
-import useSnapScrolling from './hooks/useSnapScrolling';
+import Projects from './components/Projects';
+import Tools from './components/Tools';
+import Contact from './components/Contact';
 import useSectionObserver from './hooks/useSectionObserver';
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
-  const { scrollToTarget } = useSnapScrolling(); // Get the smart scroll function
 
   // This hook automatically updates which link is active in the nav
   useSectionObserver(setActiveSection);
 
+  // 1. Create a smooth-scrolling function
+  const handleScrollToTarget = (targetElement) => {
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
-      {/* The Nav component needs both of these props to work */}
-      <Nav scrollToTarget={scrollToTarget} activeSection={activeSection} />
+      {/* 2. Pass the new function as the scrollToTarget prop */}
+      <Nav scrollToTarget={handleScrollToTarget} activeSection={activeSection} />
 
       <main>
-        {/* The Hero component needs the scrollToTarget function for its button */}
-        <Hero scrollToTarget={scrollToTarget} />
+        {/* Pass the function to the Hero component as well */}
+        <Hero scrollToTarget={handleScrollToTarget} />
         
-        {/* The other sections don't need any props */}
         <Skills />
         <Tools />
         <Projects />

@@ -1,87 +1,72 @@
 import React, { useRef } from 'react';
+import { gsap } from 'gsap';
+import { SplitText } from 'gsap/SplitText';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
 import '../styles/Skills.css';
-import '../styles/animations.css'; // 1. Import the animation styles
-import useAnimateOnScroll from '../hooks/useAnimateOnScroll'; // 2. Import the new hook
+
+gsap.registerPlugin(SplitText, ScrollTrigger);
+
+// Data uses percentages (e.g., 85 = 85% fill)
+const skillsData = [
+  { name: 'React', description: 'Dynamic user interfaces.', level: 10 },
+  { name: 'HTML & CSS', description: 'Modern, beautiful websites.', level: 95 },
+  { name: 'JavaScript', description: 'Complex web interactivity.', level: 80 },
+  { name: 'Python', description: 'Powerful server-side logic.', level: 70 },
+  { name: 'Next.js', description: 'Production-ready React apps.', level: 75 },
+];
 
 function Skills() {
-  const gridRef = useRef(null); // 3. Create a ref for the grid container
-  useAnimateOnScroll(gridRef); // 4. Call the hook with the ref
+  const sectionRef = useRef(null);
+  const titleRef = useRef(null);
+
+  useGSAP(() => {
+    const titleSplit = new SplitText(titleRef.current, { type: 'words' });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 60%',
+        toggleActions: 'play none none reverse',
+      }
+    });
+
+    tl.from(titleSplit.words, {
+      opacity: 0, yPercent: 100, ease: 'expo.out', stagger: 0.05, duration: 1,
+    })
+    .from('.skill-card', {
+      opacity: 0, y: 50, ease: 'expo.out', stagger: 0.1, duration: 1,
+    }, "-=0.8")
+    // Target each card's fill and animate its height
+    .to('.skill-level-fill', {
+      height: (i, target) => target.getAttribute('data-level') + '%', // Get level from data attribute
+      ease: 'power2.inOut',
+      stagger: 0.1,
+      duration: 1.2,
+    }, "-=1.2");
+
+  }, { scope: sectionRef });
 
   return (
-    <section id="skills" className="skills-section scroll-section">
-      <h2 className="skills-title">Skills</h2>
-      {/* 5. Attach the ref to the grid */}
-      <div ref={gridRef} className="skills-grid">
-        <div className="skill-card fade-in-up">
-          <img src="/pictures/react.jpg" alt="React logo" className="skill-icon" />
-          <div className='container'>
-            <h3 className="skill-name">React</h3>
-            <p className="skill-description">Building dynamic and responsive user interfaces.</p>
+    <section id="skills" ref={sectionRef} className="skills-section scroll-section">
+      <h2 ref={titleRef} className="skills-title">My Technical Proficiency</h2>
+      
+      <div className="skills-grid">
+        {skillsData.map((skill) => (
+          <div key={skill.name} className="skill-card">
+            {/* The fill is now a background element */}
+            <div 
+              className="skill-level-fill"
+              data-level={skill.level} // Store the level in a data attribute for GSAP
+            ></div>
+            
+            {/* The content sits on top */}
+            <div className='skill-content'>
+              <h3 className="skill-name">{skill.name}</h3>
+              <p className="skill-description">{skill.description}</p>
+            </div>
           </div>
-          <div className='area'>skill grade 9/10</div>
-        </div>
-
-        <div className="skill-card fade-in-up">
-          <img src="/pictures/html.jpg" alt="React logo" className="skill-icon" />
-          <div className='container'>
-            <h3 className="skill-name">html</h3>
-            <p className="skill-description">Building dynamic and responsive user interfaces.</p>
-          </div>
-          <div className='area'>skill grade 9/10</div>
-        </div>
-
-        <div className="skill-card fade-in-up">
-          <img src="/pictures/js.jpg" alt="React logo" className="skill-icon" />
-          <div className='container'>
-            <h3 className="skill-name">java script</h3>
-            <p className="skill-description">Building dynamic and responsive user interfaces.</p>
-          </div>
-          <div className='area'>skill grade 9/10</div>
-        </div>
-
-        <div className="skill-card fade-in-up">
-          <img src="/pictures/python.jpg" alt="React logo" className="skill-icon" />
-          <div className='container'>
-            <h3 className="skill-name">python</h3>
-            <p className="skill-description">Building dynamic and responsive user interfaces.</p>
-          </div>
-          <div className='area'>skill grade 9/10</div>
-        </div>
-
-        <div className="skill-card fade-in-up">
-          <img src="/pictures/sql.jpg" alt="React logo" className="skill-icon" />
-          <div className='container'>
-            <h3 className="skill-name">my sql</h3>
-            <p className="skill-description">Building dynamic and responsive user interfaces.</p>
-          </div>
-          <div className='area'>skill grade 9/10</div>
-        </div>
-
-        <div className="skill-card fade-in-up">
-          <img src="/pictures/tailwind.jpg" alt="React logo" className="skill-icon" />
-          <div className='container'>
-            <h3 className="skill-name">Tail wind</h3>
-            <p className="skill-description">Building dynamic and responsive user interfaces.</p>
-          </div>
-          <div className='area'>skill grade 9/10</div>
-        </div>
-
-        <div className="skill-card fade-in-up">
-          <img src="/pictures/ts.jpg" alt="React logo" className="skill-icon" />
-          <div className='container'>
-            <h3 className="skill-name">typescript</h3>
-            <p className="skill-description">Building dynamic and responsive user interfaces.</p>
-          </div>
-          <div className='area'>skill grade 9/10</div>
-        </div>
-        <div className="skill-card fade-in-up">
-          <img src="/pictures/next.jpg" alt="React logo" className="skill-icon" />
-          <div className='container'>
-            <h3 className="skill-name">Nextjs.</h3>
-            <p className="skill-description">Building dynamic and responsive user interfaces.</p>
-          </div>
-          <div className='area'>skill grade 9/10</div>
-        </div>
+        ))}
       </div>
     </section>
   );
