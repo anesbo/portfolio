@@ -1,104 +1,59 @@
-/* --- The Main Section --- */
+/* --- The Main Section (The Pinned Container) --- */
 .skills-section {
   height: 100dvh;
-  background-color: #111; /* A very dark grey, not pure black */
+  background-color: #111;
+  position: relative; /* This is the anchor for the absolute-positioned pages */
+  overflow: hidden;
+  perspective: 1000px;
+  perspective-origin: top left;
+ /* Slight tilt for a dynamic look */
+}
+
+/* --- The Individual Skill "Pages" --- */
+.skill-page {
+  position: absolute; /* Stack all pages on top of each other */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
-  flex-direction: column;
-  padding: 0 5%; /* Use padding instead of margin for better layout */
+  align-items: center;
+  padding: 2rem;
+  will-change: transform, opacity;
 }
 
-/* --- The Title --- */
-.skills-title {
-  font-size: 3rem;
-  font-weight: 900;
-  margin-bottom: 3rem;
-  color: #fff;
-  text-align: center; /* Center the title */
-}
-
-/* --- The Grid --- */
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2rem;
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto; /* Center the grid container */
-}
-
-/* --- The "Frosted Glass" Skill Card --- */
-.skill-card {
+/* --- The Content Card (The visible part) --- */
+.skill-card-content {
   position: relative; 
   overflow: hidden;
-  display: flex; /* Changed to flex for side-by-side layout */
-  align-items: center; /* Vertically center content */
-  gap: 1.5rem; /* Space between the bar and the text */
-  height: 120px; /* Adjust height as needed */
-  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  height: 100px;
+  padding: 2rem;
+  text-align: center;
   
   /* The Glass Effect */
   background-color: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  
-  text-align: left;
-  transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
-
-.skill-card:hover {
-  cursor: pointer;
-  border-color: rgba(255, 255, 255, 0.3);
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-
-/* --- Background Icon --- */
+/* ... (Your other styles for icon, name, and description can remain the same) ... */
 .skill-icon {
   z-index: 0; 
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100px;
-  height: 100px;
-  opacity: 0.03; /* Very faint */
+  width: 150px;
+  height: 150px;
+  opacity: 0.03;
 }
-
-/* --- Content on Top --- */
-.skill-content {
-  z-index: 1;
-  flex:1;
-}
-
-.skill-name {
-  font-size: 1.5rem;
-  font-weight: 900;
-  margin: 0 0 0.5rem 0;
-  color: #fff;
-}
-
-.skill-description {
-  font-size: 0.9rem;
-  color: #aaa;
-  margin: 0;
-}
-
-/* --- The Animated Skill Bar --- */
-.skill-bar-container {
-  width: 100%;
-  height: 8px; /* Thinner bar */
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-  overflow: hidden;
-  margin-top: 1rem;
-  z-index: 1;
-}
-
-.skill-bar-level {
-  height: 100%;
-  background: linear-gradient(90deg, #4f46e5, #818cf8); /* A cool gradient */
-  border-radius: 4px;
-}
+.skill-content { z-index: 1; }
+.skill-name { font-size: 2.5rem; font-weight: 900; margin: 0 0 0.5rem 0; color: #fff; }
+.skill-description { font-size: 1rem; color: #aaa; margin: 0; }
