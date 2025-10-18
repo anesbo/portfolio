@@ -8,10 +8,6 @@
 }
 /* Add this to the top of src/index.css */
 
-html {
-  /* REMOVE scroll-snap-type: y mandatory; */
-  scroll-behavior: auto; /* Let JavaScript handle it */
-}
 .scroll-section {
   
   /* Force the element onto its own layer, activating the GPU */

@@ -2,16 +2,16 @@
 .tools-section {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   height: 100dvh;
-  padding: 3rem 1.5rem;
-  background-color: #f4f4f4;
+  background-color: #f7f7f7;
 }
 
 .tools-title {
   font-size: 2.5rem;
   font-weight: 900;
+  margin-top: 5rem;
   margin-bottom: 2rem;
   color: #333;
 }
@@ -32,16 +32,13 @@
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  
-  /* Key properties for the 3D effect */
   transform-style: preserve-3d;
   will-change: transform;
-  transition: box-shadow 0.3s ease;
 }
 
 /* --- Hover State & Shadow --- */
 .tool-card:hover {
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.522);
 }
 
 /* --- Card Content Layering --- */
@@ -76,4 +73,18 @@
   padding: 0.5rem 1rem;
   z-index: 3; /* Top layer */
   transform: translateZ(30px); /* Lifts this even further forward */
+}
+.notice{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #323232;
+  width: 90%;
+  bottom: 0%;
+}
+.notice p{
+  max-width: 200px;
+  font-size: 1rem;
 }

@@ -11,7 +11,7 @@ function Nav({ scrollToTarget, activeSection }) {
   const handleNavClick = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
-      scrollToTarget(section);
+      scrollToTarget(section); // Pass the element to the function
     }
   };
 

@@ -1,69 +1,69 @@
-/* Styles for the contact section */
+/* Update or add these styles in src/styles/contact.css */
 
 .contact-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100dvh;
-    padding: 2rem;
-    background-color: #ffffff;
-    text-align: center;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 2rem;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.contact-icon {
+  margin-bottom: 2rem;
+  color: #555;
+  /* Prepare for GSAP animation */
+  opacity: 1;
+  transform: scale(1);
+}
+
+.contact-title.main-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 2.5rem;
+  color: #333;
+  overflow: hidden;
+  line-height: 1.3;
+  /* Required for SplitText */
+  overflow: hidden;
+}
+
+.contact-buttons {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.contact-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s ease; /* Keep hover effect separate */
   
-  .contact-title {
-    font-size: 2.5rem;
-    font-weight: 900;
-    margin-bottom: 2rem;
-    color: #333;
-  }
-  
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    width: 100%;
-    max-width: 600px;
-    background-color: #f9f9f9;
-    padding: 2.5rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  .contact-form input,
-  .contact-form textarea {
-    width: 100%;
-    padding: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-family: inherit;
-  }
-  
-  .contact-form textarea {
-    min-height: 150px;
-    resize: vertical;
-  }
-  
-  .contact-form input:focus,
-  .contact-form textarea:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-  }
-  
-  .contact-form button {
-    padding: 1rem;
-    background-color: #007bff;
-    color: white;
-    font-size: 1rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .contact-form button:hover {
-    background-color: #0056b3;
-  }
+  /* Initial state for glow - default shadow */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-button:hover {
+  transform: translateY(-2px);
+  /* Don't transition box-shadow here, GSAP handles it */
+}
+
+.contact-button.email {
+  background-color: #eee;
+  color: #333;
+}
+
+.contact-button.whatsapp {
+  background-color: #25D366;
+  color: white;
+}

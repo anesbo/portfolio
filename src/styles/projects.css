@@ -1,73 +1,142 @@
-/* Styles for the projects section */
-
+/* --- The Main Projects Section --- */
 .projects-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100dvh;
-    padding: 3rem 1.5rem;
-    background-color: #ffffff; /* White background */
-    text-align: center;
-  }
-  
-  .projects-title {
-    font-size: 2.5rem;
-    font-weight: 900;
-    margin-bottom: 2rem;
-    color: #333;
-  }
-  
-  /* A grid container for your project cards */
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  /* Individual project cards */
-  .project-card {
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    overflow: hidden; /* Hides parts of the image that go outside the card */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: left;
-    transition: transform 0.3s ease;
-  }
-  
-  .project-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .project-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-  }
-  
-  .project-info {
-    padding: 1.5rem;
-  }
-  
-  .project-info h3 {
-    font-size: 1.5rem;
-    font-weight: 900;
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-    color: #333;
-  }
-  
-  .project-info p {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    color: #666;
-  }
-  
-  .project-info a {
-    font-weight: bold;
-    color: #007bff;
-    text-decoration: none;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+  padding: 3rem 1.5rem;
+  background-color: #ffffff;
+  text-align: center;
+  overflow: hidden; /* Hide overflowing slides */
+  position: relative; /* For positioning arrows */
+}
+
+.projects-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+/* --- The Slider Container --- */
+.projects-slider {
+  width: 100%;
+  max-width: 800px; /* Width of the visible area */
+  overflow: hidden;
+  position: relative;
+}
+
+.slider-track {
+  display: flex;
+  width: max-content;
+}
+
+.project-slide {
+  width: 800px; /* MUST exactly match .projects-slider width/max-width */
+  flex-shrink: 0;
+  padding: 0 1rem; /* Padding is okay with box-sizing */
+  box-sizing: border-box; /* Ensures padding doesn't add to the width */
+  display: flex;
+  justify-content: center;
+}
+
+/* --- The Project Card (Inside the Slide) --- */
+.project-card {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  opacity: 1; /* Ensure cards are visible for GSAP entrance */
+  transform: translateY(0); /* Ensure cards are positioned correctly */
+  width: 90%; /* Make card fill the slide width */
+  box-sizing: border-box;
+}
+
+.project-card img {
+  width: 100%;
+  height: 300px; /* Adjust image height */
+  object-fit: cover;
+}
+
+.project-info {
+  padding: 1.5rem;
+  /* Add overflow hidden for SplitText */
+  overflow: hidden; 
+}
+
+.project-info h3 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #333;
+  /* Required for SplitText animation */
+  overflow: hidden; 
+}
+
+.project-info p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: #666;
+  /* Required for SplitText animation */
+  overflow: hidden;
+}
+
+.project-info a {
+  font-weight: bold;
+  color: #007bff;
+  text-decoration: none;
+  opacity: 1; /* For GSAP entrance */
+}
+
+/* --- Navigation Buttons --- */
+.slider-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+.slider-button svg {
+  color: black;
+} 
+
+.slider-button:hover {
+  background-color: rgb(213, 213, 213);
+}
+
+.slider-button.left {
+  left: 0px;
+}
+
+.slider-button.right {
+  right: 0px;
+}
+
+.slider-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Notice styling */
+.notice {
+  margin-top: 2rem;
+  color: #555;
+  font-size: 0.9rem;
+  max-width: 600px;
+  /* Required for SplitText */
+  overflow: hidden; 
+}

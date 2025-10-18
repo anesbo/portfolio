@@ -1,4 +1,4 @@
-/* --- The Main Section (The Pinned Container) --- */
+
 .skills-section {
   height: 100dvh;
   background-color: #111;
@@ -11,7 +11,7 @@
 
 /* --- The Individual Skill "Pages" --- */
 .skill-page {
-  position: absolute; /* Stack all pages on top of each other */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -21,6 +21,7 @@
   align-items: center;
   padding: 2rem;
   will-change: transform, opacity;
+  /* REMOVE box-shadow from here */
 }
 
 /* --- The Content Card (The visible part) --- */
@@ -31,28 +32,34 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  max-width: 400px;
+  width: 400px;
   height: 100px;
   padding: 2rem;
   text-align: center;
-  
-  /* The Glass Effect */
   background-color: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
+  /* ADD The default shadow and transition here */
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.099);
+  transition: box-shadow 0.5s ease-out;
+  cursor: pointer;
+}
+.skill-card-content:hover {
+
+  border-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* ... (Your other styles for icon, name, and description can remain the same) ... */
 .skill-icon {
   z-index: 0; 
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 150px;
+  padding: 5px 10px;
+  width: 100%;
   height: 150px;
-  opacity: 0.03;
+  opacity: 0.4;
 }
 .skill-content { z-index: 1; }
 .skill-name { font-size: 2.5rem; font-weight: 900; margin: 0 0 0.5rem 0; color: #fff; }

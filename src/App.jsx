@@ -1,38 +1,36 @@
-import { useState } from 'react';
-import Nav from './components/nav';
-import Hero from './components/hero';
-import Skills from './components/skills';
-import Projects from './components/projects';
-import Tools from './components/tools';
-import Contact from './components/contact';
+// src/App.jsx
+import { useState, useRef } from 'react';
+import Nav from './components/Nav';
+import Hero from './components/Hero';
+import Skills from './components/Skills';
+import Projects from './components/Projects';
+import Tools from './components/Tools';
+import Contact from './components/Contact';
 import useSectionObserver from './hooks/useSectionObserver';
+import useLenis from './hooks/useLenis';
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
-
-  // This hook automatically updates which link is active in the nav
   useSectionObserver(setActiveSection);
+  const lenisRef = useLenis(); // Get the Lenis ref
 
-  // 1. Create a smooth-scrolling function
   const handleScrollToTarget = (targetElement) => {
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: 'smooth' });
+    if (lenisRef.current && targetElement) {
+      lenisRef.current.scrollTo(targetElement, { duration: 1.5 });
     }
   };
 
   return (
     <>
-      {/* 2. Pass the new function as the scrollToTarget prop */}
       <Nav scrollToTarget={handleScrollToTarget} activeSection={activeSection} />
 
       <main>
-        {/* Pass the function to the Hero component as well */}
-        <Hero scrollToTarget={handleScrollToTarget} />
-        
-        <Skills />
-        <Tools />
-        <Projects />
-        <Contact />
+        {/* Pass lenisRef to all sections */}
+        <Hero scrollToTarget={handleScrollToTarget} lenisRef={lenisRef} />
+        <Skills lenisRef={lenisRef} />
+        <Tools lenisRef={lenisRef} />
+        <Projects lenisRef={lenisRef} />
+        <Contact lenisRef={lenisRef} />
       </main>
     </>
   );

@@ -1,11 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useRef,useEffect } from 'react';
 import { gsap } from 'gsap';
+import { SplitText } from 'gsap/SplitText';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import '../styles/Skills.css';
 
-// Register the GSAP plugin
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(SplitText, ScrollTrigger);
 
 const skillsData = [
   { name: 'React', description: 'Dynamic user interfaces.', imageSrc: '/pictures/react.jpg' },
@@ -17,34 +17,40 @@ const skillsData = [
 
 function Skills() {
   const sectionRef = useRef(null);
+    
 
   useGSAP(() => {
     const skillPages = gsap.utils.toArray('.skill-page');
+    const skillCardContents = gsap.utils.toArray('.skill-card-content'); // Get the content cards
+    const skillContents = gsap.utils.toArray('.skill-content');
+
+    const splits = skillContents.map(content => ({
+      name: new SplitText(content.querySelector('.skill-name'), { type: 'chars' }),
+      desc: new SplitText(content.querySelector('.skill-description'), { type: 'chars' })
+    }));
+
+    // --- Define the shadow states ---
+    const defaultShadow = "0 4px 12px rgba(0, 0, 0, 0.1)";
+    const glowShadow = "0 0 30px rgba(255, 255, 255, 0.5)";
 
     // --- Initial Setup ---
-    skillPages.forEach((page, i) => {
-        gsap.set(page, { zIndex: skillPages.length - i });
+    splits.forEach(split => {
+      gsap.set([...split.name.chars, ...split.desc.chars], { yPercent: 100, opacity: 0 });
     });
-
-    // Set initial state for all text content to be invisible
-    gsap.set(gsap.utils.toArray('.skill-content'), { opacity: 0 });
-
-    // Set the first card to be active (center) and its text to be visible
-    gsap.set(skillPages[0], { opacity: 1, scale: 1, yPercent: 0, rotationY: 0, rotationX: 0 });
-    gsap.set(skillPages[0].querySelector('.skill-content'), { opacity: 1 });
-
-    // Set the initial state for all other cards
-    gsap.set(skillPages.slice(1), { opacity: 0, scale: 0.9, yPercent: 30, rotationY: 0, rotationX: 0 });
+    gsap.set(skillPages, { zIndex: (i) => skillPages.length - i });
     
-    // If there's a second card, make it semi-visible in the upcoming position
+    gsap.set(skillPages.slice(1), { opacity: 0 });
+    gsap.set(skillPages[0], { opacity: 1, scale: 1, yPercent: 0, rotationY: 0, rotationX: 0 });
+    
+    // Set the initial glow on the FIRST CONTENT card
+    gsap.set(skillCardContents[0], { boxShadow: glowShadow });
+
+    // Animate IN the text for the FIRST card
+    gsap.to(splits[0].name.chars, { yPercent: 0, opacity: 1, stagger: 0.03, ease: 'expo.out' });
+    gsap.to(splits[0].desc.chars, { yPercent: 0, opacity: 1, stagger: 0.02, ease: 'expo.out', delay: 0.1 });
+    
     if (skillPages.length > 1) {
-        gsap.set(skillPages[1], {
-            yPercent: 25,
-            scale: 0.9,
-            rotationX: 25,
-            rotationY: 10,
-            opacity: 0.5
-        });
+      gsap.set(skillPages[1], { yPercent: 25, scale: 0.9, rotationX: 25, rotationY: 10, opacity: 0.5 });
     }
 
     // --- Create the Master Timeline ---
@@ -53,7 +59,7 @@ function Skills() {
         trigger: sectionRef.current,
         pin: true,
         scrub: 1,
-        end: `+=${skillPages.length * 100}%`,
+        end: `+=${skillPages.length * 100}%`, 
         snap: 1 / (skillPages.length - 1),
       }
     });
@@ -61,53 +67,42 @@ function Skills() {
     // --- Create animations for each transition ---
     skillPages.forEach((page, i) => {
         if (i < skillPages.length - 1) {
-            const current = skillPages[i];
-            const next = skillPages[i + 1];
-            const upcoming = skillPages[i + 2];
-            
-            const currentText = current.querySelector('.skill-content');
-            const nextText = next.querySelector('.skill-content');
+            const currentSplit = splits[i];
+            const nextSplit = splits[i + 1];
 
-            // Animate CURRENT page to the TOP position using your values
-            tl.to(current, {
-                yPercent: -20,
-                opacity: 0.7,
-                scale: 0.9,
-                rotationX: -25, // Your value
-                ease: "power1.inOut"
+            // Animate OUT the text of the CURRENT card
+            tl.to([currentSplit.name.chars, currentSplit.desc.chars], { 
+                yPercent: 100, opacity: 0, stagger: 0.01, ease: "power1.in" 
             }, `section-${i}`);
             
-            // Fade OUT the text of the CURRENT card
-            tl.to(currentText, { opacity: 0, ease: "power1.inOut" }, `section-${i}`);
+            // Animate the CURRENT page to the TOP position
+            tl.to(skillPages[i], {
+                yPercent: -16, opacity: 0.7, scale: 1, rotationX: -25, ease: "power2.inOut"
+            }, `section-${i}`);
             
-            // Hide the previous card that has moved off-screen
+            // Remove the glow from the CURRENT card's CONTENT
+            tl.to(skillCardContents[i], { boxShadow: defaultShadow }, `section-${i}`);
+            
             if (i > 0) {
-                const previous = skillPages[i - 1];
-                tl.to(previous, { opacity: 0, ease: "power1.inOut" }, `section-${i}`);
+                tl.to(skillPages[i - 1], { opacity: 0 }, `section-${i}`);
             }
 
-            // Animate NEXT page to the CENTER position using your values
-            tl.to(next, {
-                yPercent: 0,
-                opacity: 1,
-                scale: 1,
-                rotationY: 10,  // Your value
-                rotationX: 20,  // Your value
-                ease: "power1.inOut"
+            // Animate the NEXT page to the CENTER position
+            tl.to(skillPages[i + 1], {
+                yPercent: 0, xPercent: -5, opacity: 1, scale: 1, rotationY: 15, rotationX: 10, ease: "power1.inOut"
             }, `section-${i}`);
+            
+            // Add the glow to the NEXT card's CONTENT
+            tl.to(skillCardContents[i + 1], { boxShadow: glowShadow }, `section-${i}`);
 
-            // Fade IN the text of the NEXT card
-            tl.to(nextText, { opacity: 1, ease: "power1.inOut" }, `section-${i}`);
+            // Animate IN the text of the NEXT card
+            tl.to(nextSplit.name.chars, { yPercent: 0, opacity: 1, stagger: 0.02, ease: "expo.out" }, `section-${i}`);
+            tl.to(nextSplit.desc.chars, { yPercent: 0, opacity: 1, stagger: 0.01, ease: "expo.out", delay: 0.1 }, `section-${i}`);
 
-            // Animate UPCOMING page into view using your values
-            if (upcoming) {
-                tl.to(upcoming, {
-                    yPercent: 25,
-                    scale: 0.9,
-                    rotationX: 25,    // Your value
-                    rotationY: 10,    // Your value
-                    opacity: 0.5,
-                    ease: "power1.inOut"
+            // Animate the UPCOMING card
+            if (skillPages[i + 2]) {
+                tl.to(skillPages[i + 2], {
+                    yPercent: 20, scale: 1, rotationX: 50, rotationY: 15, opacity: 0.5, ease: "power1.inOut"
                 }, `section-${i}`);
             }
         }
@@ -116,7 +111,6 @@ function Skills() {
 
   return (
     <section id="skills" ref={sectionRef} className="skills-section scroll-section">
-      {/* All skill pages are stacked inside the main section */}
       {skillsData.map((skill) => (
         <div key={skill.name} className="skill-page">
           <div className="skill-card-content">
