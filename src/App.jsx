@@ -1,11 +1,11 @@
 // src/App.jsx
 import { useState, useRef } from 'react';
-import Nav from './components/Nav';
-import Hero from './components/Hero';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
-import Tools from './components/Tools';
-import Contact from './components/Contact';
+import Nav from './components/nav';
+import Hero from './components/hero';
+import Skills from './components/skills';
+import Projects from './components/projects';
+import Tools from './components/tools';
+import Contact from './components/contact';
 import useSectionObserver from './hooks/useSectionObserver';
 import useLenis from './hooks/useLenis';
 
