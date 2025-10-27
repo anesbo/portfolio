@@ -97,7 +97,7 @@
     padding: 2rem 1rem; /* Adjust padding */
     height: auto; /* Allow height to adjust based on content */
     min-height: 100vh; /* Ensure it still takes up significant space */
-    justify-content: flex-start; /* Align content to top */
+    justify-content: space-around; /* Align content to top */
   }
 
   .tools-title {

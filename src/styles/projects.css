@@ -107,11 +107,11 @@
   transition: background-color 0.3s ease;
 }
 .slider-button svg {
-  color: rgb(255, 255, 255);
+  color: rgba(165, 7, 62, 0.781);
 } 
 
 .slider-button:hover {
-  background-color: rgb(213, 213, 213);
+  background-color: rgba(0, 0, 0, 0.509);
 }
 
 .slider-button.left {
