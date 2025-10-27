@@ -1,172 +1,147 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react'; // 1. Import useEffect
 import { gsap } from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import '../styles/tools.css';
 
+// Register GSAP plugins
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
 const toolsData = [
+  // Standardized image paths (assuming they are all in /pictures/)
   { name: 'Flask', area: 'Backend Framework', imageSrc: '/pictures/flask.jpg' },
   { name: 'Git', area: 'Version Control', imageSrc: '/pictures/git.jpg' },
   { name: 'GitHub', area: 'Collaboration', imageSrc: '/pictures/hub.jpg' },
   { name: 'Supabase', area: 'Backend Service', imageSrc: '/pictures/supabase.jpg' },
-  { name: 'NPM', area: 'Package Manager', imageSrc: '/pictures/npm.svg' },
 ];
 
 function Tools() {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
-  const noticeRef = useRef(null); // NEW: Ref for the notice div
+  const noticeRef = useRef(null);
 
+  // Hook 1: Scroll-triggered entrance animations
   useGSAP(() => {
-    const titleSplit = new SplitText(titleRef.current, { type: 'words' });
-    const cardTexts = gsap.utils.toArray('.tool-card').map(card => ({
-      name: new SplitText(card.querySelector('.name'), { type: 'chars' }),
-      area: new SplitText(card.querySelector('.area'), { type: 'chars' })
-    }));
+    // Wrap animations in a function for delayed call
+    const initScrollAnimations = () => {
+        const titleSplit = new SplitText(titleRef.current, { type: 'words' });
+        const cardTexts = gsap.utils.toArray('.tool-card').map(card => ({
+          name: new SplitText(card.querySelector('.name'), { type: 'chars' }),
+          area: new SplitText(card.querySelector('.area'), { type: 'chars' })
+        }));
+        let noticeSplits = [];
+        if (noticeRef.current) {
+            gsap.utils.toArray(noticeRef.current.querySelectorAll('p')).forEach(p => {
+                noticeSplits.push(new SplitText(p, { type: 'words' }));
+            });
+        }
 
-    // NEW: Split the paragraphs in the notice div
-    let noticeSplits = [];
-    if (noticeRef.current) {
-        gsap.utils.toArray(noticeRef.current.querySelectorAll('p')).forEach(p => {
-            noticeSplits.push(new SplitText(p, { type: 'words' }));
+        // Initial Setup: Hide elements
+        cardTexts.forEach(split => gsap.set([...split.name.chars, ...split.area.chars], { yPercent: 100, opacity: 0 }));
+        noticeSplits.forEach(split => gsap.set(split.words, { yPercent: 100, opacity: 0 }));
+
+        // Master Timeline for entrance
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 70%',
+            toggleActions: 'play none none none',
+          }
         });
-    }
 
-    // --- Initial Setup: Hide all characters/words ---
-    cardTexts.forEach(split => {
-      gsap.set([...split.name.chars, ...split.area.chars], { yPercent: 100, opacity: 0 });
-    });
-    noticeSplits.forEach(split => { // NEW: Hide notice words
-        gsap.set(split.words, { yPercent: 100, opacity: 0 });
-    });
+        // Animate Title
+        tl.from(titleSplit.words, {
+          opacity: 0, yPercent: 100, ease: 'expo.out', stagger: 0.05, duration: 1,
+        })
+        // Animate Cards
+        .from('.tool-card', {
+          opacity: 0, y: 60, rotationX: -20, ease: 'expo.out', stagger: 0.1, duration: 1.2,
+        }, "-=0.8");
 
+        // Animate Card Text sequentially
+        cardTexts.forEach((split) => {
+          tl.to(split.name.chars, {
+            yPercent: 0, opacity: 1, stagger: 0.03, duration: 0.6, ease: 'expo.out'
+          }, ">-0.5")
+          .to(split.area.chars, {
+            yPercent: 0, opacity: 1, stagger: 0.02, duration: 0.6, ease: 'expo.out'
+          }, "<+=0.1");
+        });
 
-    // --- Create the Master Timeline ---
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top 70%',
-        toggleActions: 'play none none reverse',
-        // Optional: you can uncomment to see start/end markers
-        // markers: true, 
-      }
-    });
+        // Animate Notice Text
+        noticeSplits.forEach(split => {
+            tl.to(split.words, {
+                yPercent: 0, opacity: 1, stagger: 0.02, duration: 0.8, ease: 'expo.out'
+            }, ">0.3");
+        });
 
-    // Animate the main title
-    tl.from(titleSplit.words, {
-      opacity: 0,
-      yPercent: 100,
-      ease: 'expo.out',
-      stagger: 0.05,
-      duration: 1,
-    })
-    // Animate the cards entrance
-    .from('.tool-card', {
-      opacity: 0,
-      y: 60,
-      rotationX: -20,
-      ease: 'expo.out',
-      stagger: 0.1,
-      duration: 1.2,
-    }, "-=0.8"); // Overlap card animation with title
+        // Add subtle scroll parallax effect for cards
+        gsap.to('.tool-card', {
+            y: "10vh", // Moves down as you scroll through section
+            ease: "none",
+            scrollTrigger: {
+                trigger: sectionRef.current,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1.5 // Slightly slower scrub for smoother parallax
+            }
+        });
+    }; // End of initScrollAnimations
 
-    // Add the sequential text animations for cards AFTER the cards are done
-    cardTexts.forEach((split, index) => {
-      tl.to(split.name.chars, {
-        yPercent: 0,
-        opacity: 1,
-        stagger: 0.03,
-        duration: 0.6,
-        ease: 'expo.out'
-      // Use the position parameter to sequence the animations
-      }, `>-0.5`); // Start this card's text animation slightly before previous one finishes
-
-      tl.to(split.area.chars, {
-        yPercent: 0,
-        opacity: 1,
-        stagger: 0.02,
-        duration: 0.6,
-        ease: 'expo.out'
-      }, "<+=0.1"); // Start this slightly after the name animation starts
-    });
-
-    // NEW: Animate the notice text AFTER all card text animations
-    noticeSplits.forEach(split => {
-        tl.to(split.words, {
-            yPercent: 0,
-            opacity: 1,
-            stagger: 0.02,
-            duration: 0.8,
-            ease: 'expo.out'
-        }, ">0.3"); // Start this paragraph's animation 0.3s after the previous one finishes
-    });
-
+    // 4. Use delayedCall to prevent font loading issues
+    gsap.delayedCall(0.1, initScrollAnimations);
 
   }, { scope: sectionRef });
 
-  // This useEffect handles the 3D tilt effect (no changes needed here)
-  // in src/components/Tools.jsx
+  // Hook 2: 3D Tilt Hover Effect for Cards
+  useEffect(() => {
+    const cards = sectionRef.current?.querySelectorAll('.tool-card');
+    if (!cards || cards.length === 0) return;
 
-useEffect(() => {
-  const cards = sectionRef.current?.querySelectorAll('.tool-card');
-  if (!cards) return;
+    // 5. Correct cleanup function structure
+    const cleanups = Array.from(cards).map(card => {
+        const handleMouseMove = (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            const rotateY = (x / rect.width) * 40; // Your value
+            const rotateX = -(y / rect.height) * 40; // Your value
+            const moveX = (x / rect.width) * 50; // Your value
+            const moveY = (y / rect.height) * 50; // Your value
 
-  cards.forEach(card => {
-      // Variable to store the GSAP tween so we can kill it if needed
-      let hoverTween = null; 
+            gsap.to(card, {
+                rotationX: rotateX,
+                rotationY: rotateY,
+                x: moveX,
+                y: moveY,
+                duration: 5, // Your value
+                ease: 'power2.out',
+            });
+        };
 
-      const handleMouseMove = (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left - rect.width / 2;
-          const y = e.clientY - rect.top - rect.height / 2;
-          
-          // Calculate rotations based on mouse position
-          const rotateY = (x / rect.width) * 25;
-          const rotateX = -(y / rect.height) * 25;
+        // --- No handleMouseLeave needed for persistence ---
 
-          // Use GSAP to smoothly animate to the target rotation and scale
-          gsap.to(card, {
-              rotationX: rotateX,
-              rotationY: rotateY,
-              scale: 1.05, // Apply scale on hover
-              duration: 0.1, // Duration for the smooth animation
-              ease: 'power1.out',
-              overwrite: true // Prevent conflicting animations
-          });
-      };
+        card.addEventListener('mousemove', handleMouseMove);
 
-      const handleMouseLeave = () => {
-          // Use GSAP to smoothly animate back to the default state
-          hoverTween = gsap.to(card, {
-              rotationX: 0,
-              rotationY: 0,
-              scale: 1, // Return to normal scale
-              duration: 0.5, // Slightly longer duration for a smooth exit
-              ease: 'power1.out',
-              overwrite: true
-          });
-      };
+        // Return cleanup function for this specific card
+        return () => {
+            card.removeEventListener('mousemove', handleMouseMove);
+            // Reset position smoothly when effect is cleaned up
+            gsap.to(card, { rotationX: 0, rotationY: 0, x: 0, y: 0, duration: 0.8 });
+        };
+    });
 
-      card.addEventListener('mousemove', handleMouseMove);
-      card.addEventListener('mouseleave', handleMouseLeave);
-
-      // Cleanup function
-      return () => {
-          card.removeEventListener('mousemove', handleMouseMove);
-          card.removeEventListener('mouseleave', handleMouseLeave);
-          // Kill any ongoing animation when the component unmounts
-          if (hoverTween) hoverTween.kill(); 
-      };
-  });
-}, []);
+    // Return a single master cleanup function
+    return () => {
+      cleanups.forEach(cleanup => cleanup());
+    };
+  }, []); // Run only once
 
   return (
     <section id="tools" ref={sectionRef} className="tools-section scroll-section">
       <h2 ref={titleRef} className="tools-title">Tools I Use</h2>
-      
+
       <div className="tools-grid">
         {toolsData.map((tool, index) => (
           <div key={tool.name} className="tool-card" data-index={index}>
@@ -177,7 +152,6 @@ useEffect(() => {
         ))}
       </div>
 
-      {/* NEW: Add the ref to your notice div */}
       <div className='notice' ref={noticeRef}>
         <p>most of my project are using these tools</p>
         <p>

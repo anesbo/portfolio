@@ -21,7 +21,6 @@
 
 /* --- The Slider Container --- */
 .projects-slider {
-  width: 100%;
   max-width: 800px; /* Width of the visible area */
   overflow: hidden;
   position: relative;
@@ -29,20 +28,19 @@
 
 .slider-track {
   display: flex;
-  width: max-content;
+  width: 100%;
 }
 
 .project-slide {
-  width: 800px; /* MUST exactly match .projects-slider width/max-width */
+  width: 100%;
   flex-shrink: 0;
-  padding: 0 1rem; /* Padding is okay with box-sizing */
-  box-sizing: border-box; /* Ensures padding doesn't add to the width */
   display: flex;
   justify-content: center;
 }
 
 /* --- The Project Card (Inside the Slide) --- */
 .project-card {
+  width: 100%;
   background-color: #f9f9f9;
   border-radius: 8px;
   overflow: hidden;
@@ -50,8 +48,6 @@
   text-align: left;
   opacity: 1; /* Ensure cards are visible for GSAP entrance */
   transform: translateY(0); /* Ensure cards are positioned correctly */
-  width: 90%; /* Make card fill the slide width */
-  box-sizing: border-box;
 }
 
 .project-card img {
@@ -97,7 +93,7 @@
   top: 50%;
   transform: translateY(-50%);
   background-color: rgba(0, 0, 0, 0);
-  color: white;
+  color: rgb(0, 0, 0);
   border: none;
   border-radius: 50%;
   width: 40px;
@@ -111,7 +107,7 @@
   transition: background-color 0.3s ease;
 }
 .slider-button svg {
-  color: black;
+  color: rgb(255, 255, 255);
 } 
 
 .slider-button:hover {
@@ -139,4 +135,116 @@
   max-width: 600px;
   /* Required for SplitText */
   overflow: hidden; 
+}
+/* --- TABLET STYLES ONLY (Screens 768px wide or smaller) --- */
+@media (max-width: 768px) {
+  .projects-section {
+    padding: 2.5rem 0rem; /* Adjust padding */
+    height: auto; /* Allow height to adjust */
+    min-height: 100vh;
+  }
+
+  .projects-title {
+    font-size: 2.2rem; /* Reduce title size */
+    margin-bottom: 1.5rem;
+  }
+
+  /* Adjust slider and slide width for tablet */
+  .projects-slider {
+    max-width: 600px; /* Reduce slider width */
+  }
+
+  .project-slide {
+    width: 600px; /* Match slider width */
+    padding: 0 0.8rem;
+  }
+
+  .project-card img {
+    height: 250px; /* Reduce image height */
+  }
+
+  .project-info h3 {
+    font-size: 1.3rem; /* Reduce font size */
+  }
+
+  .project-info p {
+    font-size: 0.9rem; /* Reduce font size */
+  }
+
+  /* Move buttons slightly inwards */
+  .slider-button.left {
+    left: 5px;
+  }
+  .slider-button.right {
+    right: 5px;
+  }
+
+  .notice {
+    margin-top: 1.5rem;
+    font-size: 0.8rem;
+    max-width: 90%;
+  }
+}
+
+/* --- PHONE STYLES ONLY (Screens 480px wide or smaller) --- */
+@media (max-width: 480px) {
+  .projects-section {
+    padding: 2rem 0rem; /* Further reduce padding */
+  }
+
+  .projects-title {
+    font-size: 1.8rem; /* Further reduce title size */
+    margin-bottom: 5rem;
+  }
+
+  /* Make slider take up more screen width */
+  .projects-slider {
+    max-width: 95%; /* Use percentage */
+    width: 95%;
+  }
+
+  .project-slide {
+    width: 100vw; /* Make slide full viewport width */
+    max-width: 100%; /* Ensure it doesn't exceed slider */
+    padding: 0rem; /* Reduce padding */
+  }
+  /* Adjust card width within the full-width slide */
+   .project-card {
+      width: 90%; /* Card takes full width of the slide area */
+   }
+
+
+  .project-card img {
+    height: 200px; /* Further reduce image height */
+  }
+
+  .project-info {
+    padding: 1rem; /* Reduce padding */
+  }
+
+  .project-info h3 {
+    font-size: 1.1rem; /* Further reduce font size */
+  }
+
+  .project-info p {
+    font-size: 0.8rem; /* Further reduce font size */
+  }
+
+  /* Make buttons smaller and closer to edge */
+  .slider-button {
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
+  }
+  .slider-button.left {
+    left: -8px;
+  }
+  .slider-button.right {
+    right: -8px;
+  }
+
+  .notice {
+    margin-top: 1rem;
+    font-size: 0.7rem;
+  }
 }

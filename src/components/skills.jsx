@@ -59,7 +59,7 @@ function Skills() {
         trigger: sectionRef.current,
         pin: true,
         scrub: 1,
-        end: `+=${skillPages.length * 100}%`, 
+        end: `+=${skillPages.length * 70}%`, 
         snap: 1 / (skillPages.length - 1),
       }
     });
@@ -111,6 +111,7 @@ function Skills() {
 
   return (
     <section id="skills" ref={sectionRef} className="skills-section scroll-section">
+      <h1>skills that i have</h1>
       {skillsData.map((skill) => (
         <div key={skill.name} className="skill-page">
           <div className="skill-card-content">

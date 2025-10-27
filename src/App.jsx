@@ -12,7 +12,7 @@ import useLenis from './hooks/useLenis';
 function App() {
   const [activeSection, setActiveSection] = useState('home');
   useSectionObserver(setActiveSection);
-  const lenisRef = useLenis(); // Get the Lenis ref
+  const lenisRef = useLenis();
 
   const handleScrollToTarget = (targetElement) => {
     if (lenisRef.current && targetElement) {

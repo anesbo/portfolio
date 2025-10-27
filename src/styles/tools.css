@@ -31,14 +31,15 @@
   height: 150px;
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.522);
   transform-style: preserve-3d;
   will-change: transform;
+  transition: box-shadow 0.6s ease;
 }
 
 /* --- Hover State & Shadow --- */
 .tool-card:hover {
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.522);
+  box-shadow: 0 20px 40px rgba(255, 0, 0, 0.704);
 }
 
 /* --- Card Content Layering --- */
@@ -55,6 +56,7 @@
 .tool-card .name {
   position: relative;
   z-index: 2; /* Middle layer */
+  text-align: center;
   margin-top: 20px;
   font-size: 1.2rem;
   font-weight: bold;
@@ -87,4 +89,96 @@
 .notice p{
   max-width: 200px;
   font-size: 1rem;
+}
+
+/* --- TABLET STYLES ONLY (Screens 768px wide or smaller) --- */
+@media (max-width: 768px) {
+  .tools-section {
+    padding: 2rem 1rem; /* Adjust padding */
+    height: auto; /* Allow height to adjust based on content */
+    min-height: 100vh; /* Ensure it still takes up significant space */
+    justify-content: flex-start; /* Align content to top */
+  }
+
+  .tools-title {
+    font-size: 2.2rem; /* Reduce title size */
+    margin-top: 4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tools-grid {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); /* Smaller min card width */
+    gap: 1.5rem; /* Reduce gap */
+    max-width: 90%; /* Allow grid to use more width */
+  }
+
+  .tool-card {
+    height: 130px; /* Reduce card height */
+  }
+
+  .tool-card .name {
+    font-size: 1.1rem; /* Reduce font size */
+    margin-top: 15px;
+  }
+
+  .tool-card .area {
+    font-size: 0.8rem; /* Reduce font size */
+    padding: 0.4rem 0.8rem;
+  }
+
+  .notice {
+    width: 95%;
+    font-size: 0.8rem;
+    flex-direction: column; /* Stack notice paragraphs */
+    gap: 0.5rem;
+    margin-top: 2rem; /* Add space above notice */
+    margin-bottom: 2rem; /* Add space below notice */
+  }
+  .notice p {
+    max-width: 90%; /* Allow text to take more width */
+    font-size: 0.9rem;
+  }
+}
+
+/* --- PHONE STYLES ONLY (Screens 480px wide or smaller) --- */
+@media (max-width: 480px) {
+  .tools-section {
+    padding: 1.5rem 0.5rem; /* Further reduce padding */
+  }
+
+  .tools-title {
+    font-size: 1.8rem; /* Further reduce title size */
+    margin-top: 3rem;
+  }
+
+  .tools-grid {
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); /* Even smaller min card width */
+    gap: 1rem; /* Further reduce gap */
+    max-width: 95%;
+  }
+
+  .tool-card {
+    height: 110px; /* Further reduce card height */
+  }
+
+  .tool-card .name {
+    font-size: 1rem; /* Further reduce font size */
+    margin-top: 10px;
+    transform: translateZ(15px); /* Reduce 3D effect slightly */
+  }
+
+  .tool-card .area {
+    font-size: 0.7rem; /* Further reduce font size */
+    padding: 0.3rem 0.6rem;
+    transform: translateZ(20px); /* Reduce 3D effect slightly */
+  }
+
+  .notice {
+    font-size: 0.7rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .notice p {
+    font-size: 0.8rem;
+  }
 }

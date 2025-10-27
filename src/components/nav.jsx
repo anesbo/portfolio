@@ -1,24 +1,46 @@
-import React from 'react';
-import { FaMobileAlt } from 'react-icons/fa'; // Icon for the phone
-import '../styles/nav.css';                   // Styles for this component
+import React, { useState } from 'react'; // 1. Import useState
+import { FaMobileAlt, FaTimes, FaChevronRight } from 'react-icons/fa'; // 2. Import icons for toggle
+import '../styles/nav.css';
 
-// The component receives two props from App.jsx:
-// 1. scrollToTarget: The function that handles smooth scrolling.
-// 2. activeSection: A string that tells us which section is currently visible.
 function Nav({ scrollToTarget, activeSection }) {
+  // 3. Add state to track if the sidebar is open or closed
+  const [isOpen, setIsOpen] = useState(false);
 
-  // This function finds the section by its ID and calls the scroll function
   const handleNavClick = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
-      scrollToTarget(section); // Pass the element to the function
+      scrollToTarget(section);
     }
+    setIsOpen(false); // 4. Close the sidebar when a link is clicked
+  };
+
+  // 5. Function to toggle the sidebar state
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
   };
 
   return (
-    <nav className="nav-bar">
-      {/* List of navigation links */}
-      <ul className="nav-links">
+    // Add class to nav-bar when sidebar is open for potential styling
+    <nav className={`nav-bar ${isOpen ? 'sidebar-nav-active' : ''}`}>
+      {/* 6. Add the toggle button */}
+      <button
+        className="menu-toggle"
+        onClick={toggleMenu}
+        aria-label="Toggle menu"
+        aria-expanded={isOpen}
+      >
+        {/* Chevron Icon (>) - Visible when closed */}
+        <span className={`icon-container chevron ${isOpen ? '' : 'is-visible'}`}>
+          <FaChevronRight />
+        </span>
+        {/* Times Icon (X) - Visible when open */}
+        <span className={`icon-container times ${isOpen ? 'is-visible' : ''}`}>
+          <FaTimes />
+        </span>
+      </button>
+
+      {/* 7. Conditionally add 'sidebar' and 'is-open' classes to the ul */}
+      <ul className={`nav-links ${isOpen ? 'sidebar is-open' : 'sidebar'}`}>
         {/* Home Link */}
         <li
           className={`nav-link-item ${activeSection === 'home' ? 'active-link' : ''}`}
@@ -65,7 +87,7 @@ function Nav({ scrollToTarget, activeSection }) {
         </li>
       </ul>
 
-      {/* Contact information on the right side of the navbar */}
+      {/* Contact information */}
       <div className='contact-info'>
         <FaMobileAlt color='white' size="1.2rem" />
         <p>0540 43 24 58</p>

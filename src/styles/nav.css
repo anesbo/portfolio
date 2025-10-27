@@ -1,118 +1,255 @@
+/* --- YOUR ORIGINAL DESKTOP STYLES (UNCHANGED) --- */
 /* --- The Main Navigation Bar Container --- */
 .nav-bar {
-    /* Positioning */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    /* Frosted Glass Effect */
-    background-color: rgba(45, 34, 47, 0.3); /* Dark purple with 30% opacity */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    
-    /* Layout for items inside the bar */
-    display: flex;
-    justify-content: space-between; /* Pushes children (links & contact) to opposite ends */
-    align-items: center;
-    padding: 0.2rem 2rem; /* Vertical and horizontal padding */
-    
-    /* Interaction */
-    pointer-events: none; /* Ignore mouse events to allow page scrolling */
-    
-    /* Styling */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  }
-  /* --- Main Navigation Link Items --- */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: rgba(45, 34, 47, 0.3); /* Your background */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.2rem 2rem; /* Your padding */
+  pointer-events: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Your border */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Your shadow */
+  box-sizing: border-box; /* Added for safety */
+}
+
 /* --- Main Navigation Link Items --- */
 .nav-link-item {
-    position: relative;
-    display: flex; /* Use flex to center text easily */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 140px; /* Your width */
+  height: 2.5rem; /* Your height */
+  background: transparent;
+  border-radius: 1rem;
+  padding: 0;
+  font-size: 1.1rem; /* Your font size */
+}
+
+/* --- The Animated Circle --- */
+.nav-link-item .circle {
+  transition: all 0.5s cubic-bezier(0.65, 0, 0.076, 1) 0.3s; /* Your transition */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: #6d3c3c; /* Your color */
+  border-radius: 20rem;
+  z-index: 1;
+  scale: 0.3; /* Your scale */
+}
+
+/* --- The Link Text --- */
+.nav-link-item .button-text {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  font-weight: 700;
+  white-space: nowrap; /* Added to prevent wrapping */
+}
+
+/* --- HOVER and ACTIVE States --- */
+.nav-link-item:hover .circle,
+.nav-link-item.active-link .circle {
+  border-radius: 1rem;
+  scale: 1;
+  width: 100%;
+  background: #4f031c; /* Your color */
+  border-bottom: 3px solid #fadcd5 ; /* Your border */
+  border-right: 3px solid #fadcd5; /* Your border */
+}
+
+.nav-link-item:hover .button-text,
+.nav-link-item.active-link .button-text {
+  color: #fff; /* Your color */
+}
+
+/* --- The List of Navigation Links --- */
+.nav-links {
+  display: flex;
+  gap: 2rem; /* Your gap */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  pointer-events: auto; /* Your setting */
+}
+
+/* --- Individual link styling --- */
+/* (Base styles removed, handled by nav-link-item and button-text) */
+
+/* Active link text color */
+.nav-links li.active-link .button-text { /* Target the text inside */
+  color: #ffffff !important; /* Your color */
+}
+
+
+/* --- The Contact Info Section --- */
+.contact-info {
+  display: flex;
+  gap: 1rem; /* Your gap */
+  align-items: center;
+  color: white;
+  pointer-events: auto; /* Your setting */
+  margin-right: 5%; /* Your margin */
+}
+
+/* --- MOBILE STYLES ONLY --- */
+/* Hide toggle button by default */
+/* --- Menu Toggle Button --- */
+.menu-toggle {
+  display: none;
+  position: relative; /* Needed for absolute positioning of icons */
+  overflow: hidden;   /* Hide icons during transition */
+  /* Ensure a fixed size for the animation */
+  width: 44px;        /* Example size, adjust as needed */
+  height: 44px;       /* Example size, adjust as needed */     /* Center icons */
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  pointer-events: auto; /* Make sure it's clickable */
+}
+
+/* Container for icons inside the button */
+.menu-toggle .icon-container {
+  position: absolute; /* Stack icons */
+  display: flex;      /* Center the icon within the span */
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  opacity: 0;         /* Hidden by default */
+  transform: rotate(-90deg) scale(0.5); /* Start rotated left and small */
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; /* Animate opacity and transform */
+}
+
+/* Visible state (applied via React state) */
+.menu-toggle .icon-container.is-visible {
+  opacity: 1;
+  transform: rotate(0deg) scale(1); /* Rotate in and scale up */
+}
+
+/* Specific rotation for the chevron when hiding */
+.menu-toggle .chevron:not(.is-visible) {
+    transform: rotate(90deg) scale(0.5); /* Rotate right when hiding */
+}
+
+@media (max-width: 768px) {
+  /* --- Nav Bar on Mobile --- */
+  .nav-bar {
+    background-color: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom: none;
+    box-shadow: none; 
+    justify-content: flex-start; /* Button on left */
+    padding: 0.8rem 1rem;
+    pointer-events: none; /* Keep clicks passing through */
+  }
+
+  /* --- Show and Style Mobile Toggle Button --- */
+  .menu-toggle {
+    display: block;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    width: 140px;
-    height: 2.5rem;
-    background: transparent;
-    border-radius: 1rem; /* Rounded corners */
-    padding: 0;
-    font-size: 1.1rem;
-  }
-  
-  /* --- The Animated Circle --- */
-  .nav-link-item .circle {
-    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 2.5rem; /* Initial small size */
-    height: 2.5rem;
-    background: #6d3c52;
-    border-radius: 20rem; /* Pill shape */
-    z-index: 1; /* Sits behind the text */
-    scale: 0.3;
-  }
-  
-  /* --- The Link Text --- */
-  .nav-link-item .button-text {
-    position: relative;
-    z-index: 2; /* Sits ON TOP of the circle */
-    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
-    color: #fff;
-    font-weight: 700;
-  }
-  
-  /* --- HOVER and ACTIVE States --- */
-  /* This rule applies to both hovered and active links */
-  .nav-link-item:hover .circle,
-  .nav-link-item.active-link .circle {
-    border-radius: 1rem;
-    scale: 1;
-    width: 100%; /* Expands to cover the whole link */
-    background: #4b2138; /* Active color */
-    border-bottom: 3px solid #fadcd5 ;
-    border-right: 3px solid #fadcd5;
-  }
-  
-  /* On hover, the text color can stay the same or change */
-  .nav-link-item:hover .button-text,
-  .nav-link-item.active-link .button-text {
-    color: #fff;
-  }
-  
-  /* --- The List of Navigation Links --- */
-  .nav-links {
     display: flex;
-    gap: 2rem;
+    padding: 5px;
+    background: rgb(120, 6, 39);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.647);
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1001;
+    border-radius: 8px;
+    pointer-events: auto; /* Enable clicks */
+    transition: background-color 0.3s ease;
+  }
+
+  /* --- Hide Desktop Links and Contact Info --- */
+  .nav-links {
+    display: none; /* Hide horizontal links */
+  }
+  .contact-info {
+    display: none; /* Hide contact info */
+  }
+
+  /* --- Sidebar Navigation Links (Mobile View) --- */
+  .nav-links.sidebar {
+    display: flex; /* Make it visible */
+    position: fixed;
+    top: 10px;
+    left: 0;
+    height: auto;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    width: 170px;
+    background-color: rgba(0, 0, 0, 0.329);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(15px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
     list-style: none;
     margin: 0;
-    padding: 0;
-    
-    /* Re-enable mouse events for this specific area */
-    pointer-events: auto; 
+    padding: 3rem 0 5px 0;
+    transform: translateX(-100%); /* Hidden state */
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    pointer-events: auto;
+    border-radius: 8px;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.2);
   }
-  
-  /* Individual link styling */
-  .nav-links li {
-    font-size: 1.2rem;
+
+  /* --- Sidebar Open State (Floating) --- */
+  .nav-links.sidebar.is-open {
+    left: 10px; /* Adjust gap */
+    transform: translateX(0); /* Make it appear */
+  }
+
+  /* --- Individual Link Items (Sidebar View) --- */
+  /* Remove desktop styles and apply simple sidebar styles */
+  .nav-links.sidebar .nav-link-item {
+    position: static; /* Reset position */
+    display: block; /* Stack vertically */
+    width: 90%;
+    height: auto;
+    background: transparent;
+    border-radius: 6px; /* Simpler radius */
+    padding: 0.7rem 0;
+    font-size: 1rem;
+    text-align: center;
+    border: solid 1px white; /* Remove desktop border */
+    transition: background-color 0.2s ease;
+    border-radius: 15px;
+  }
+  .nav-links.sidebar .nav-link-item .circle {
+    display: none; /* Hide desktop circle */
+  }
+  .nav-links.sidebar .nav-link-item .button-text {
+    position: static; /* Reset text position */
     color: white;
-    font-weight: bold;
-    cursor: pointer;
+    transition: none;
   }
-  .nav-links li.active-link {
-    color: #821168; /* A bright color to indicate it's active */
-    position: relative; /* Needed for the underline pseudo-element */
+  .nav-links.sidebar .nav-link-item:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Simple hover */
   }
-  
-  /* --- The Contact Info Section --- */
-  .contact-info {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    color: white; /* Make sure text is visible */
-    
-    /* Re-enable mouse events for this specific area */
-    pointer-events: auto; 
-    margin-right: 5%;
+  .nav-links.sidebar .nav-link-item.active-link {
+    background-color: #6a0124; /* Simple active background */
+    color: #fadcd5;
+    border: solid 2px rgb(255, 255, 137); /* Ensure no desktop border */
   }
+  /* Ensure active text color is correct in sidebar */
+  .nav-links.sidebar li.active-link .button-text {
+    color: #fadcd5;
+  }
+}
